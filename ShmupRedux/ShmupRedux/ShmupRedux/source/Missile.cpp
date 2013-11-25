@@ -44,9 +44,9 @@ void Missile::Launch()
 {
 }
 
-void Missile::HandleCollision(Entity &a_roTarget)
-{
-	if(CheckBoxCollision(a_roTarget))
-		this->Die();
-}
+//void Missile::HandleCollision(Entity &a_roTarget)
+//{
+//	if(CheckBoxCollision(a_roTarget))
+//		this->Die();
+//}
 

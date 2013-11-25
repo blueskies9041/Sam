@@ -16,8 +16,8 @@ public:
 	void Update();
 	void Control();
 	void Die();
-	void HandleCollision(Projectile &a_roTarget);
-	void HandleCollision(Entity &a_roTarget);
+	/*void HandleCollision(Projectile &a_roTarget);
+	void HandleCollision(Entity &a_roTarget);*/
 
 private:
 

@@ -27,7 +27,7 @@ public:
 	inline int GetHp() { return m_iHp; } 
 	inline void SetHp(int a_iHp) { m_iHp = a_iHp; }
 	
-	virtual void HandleCollision(Projectile &a_roTarget) = 0;
+	void HandleCollision(Projectile &a_roTarget);
 
 protected:
 		

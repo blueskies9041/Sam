@@ -26,11 +26,11 @@ void Bullet::Launch(Entity &ar_oSource)
 
 void Bullet::Update()
 {
-	//if(GetAlive())
-	//{
+	if(GetAlive())
+	{
 		Entity::Move();
 		Entity::Draw();
-	//}
+	}
 }
 
 void Bullet::Move()
@@ -47,9 +47,8 @@ void Bullet::Die()
 	SetPosition(-100, -100);
 }
 
-void Bullet::HandleCollision(Entity &a_roTarget)
-{
-	if(CheckBoxCollision(a_roTarget))
-		this->Die();
-}
+//void Bullet::HandleCollision(Entity &a_roTarget)
+//{
+//
+//}
 

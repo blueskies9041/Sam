@@ -132,6 +132,7 @@
     <ClCompile Include="source\MenuState.cpp" />
     <ClCompile Include="source\Missile.cpp" />
     <ClCompile Include="source\Player.cpp" />
+    <ClCompile Include="source\Projectile.cpp" />
     <ClCompile Include="source\Unit.cpp" />
     <ClCompile Include="source\Vector2D.cpp" />
   </ItemGroup>

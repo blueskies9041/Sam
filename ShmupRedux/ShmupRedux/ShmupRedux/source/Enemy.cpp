@@ -15,12 +15,14 @@ bool c_bEnemyAlive = true;
 const int c_iEnemyMaxBullets = 8;
 const int c_iEnemyMaxMissiles = 3;
 const int c_iEnemyMaxLasers = 10;
+const int c_iEnemyHp = 10;
 Vector2D c_v2DInitEnemyPos(512, 50);
 
 
 void Enemy::Init()
 {
 	SetTag("Enemy");
+	SetHp(c_iEnemyHp);
 	SetWidth(c_iEnemyWidth);
 	SetHeight(c_iEnemyHeight);
 	SetAlive(c_bEnemyAlive);
@@ -48,6 +50,9 @@ void Enemy::Update()
 {
 	if(GetAlive())
 	{
+		if(GetHp() <= 0)
+			this->Die();
+
 		Entity::Move();
 		Entity::Draw();
 		m_iBulletTimer++;
@@ -75,20 +80,21 @@ void Enemy::Die()
 	SetAlive(false);
 	SetPosition(-100, -100);
 }
-void Enemy::HandleCollision(Projectile &a_roTarget)
-{
-	if(a_roTarget.GetTag() == "Bullet" || a_roTarget.GetTag() == "Missile" || a_roTarget.GetTag() == "Laser" )
-	{
-		if(CheckBoxCollision(a_roTarget))
-		{
-			this->Die();
-		}
-	}
-}
 
-
-void Enemy::HandleCollision(Entity &a_roTarget)
-{
-	
-}
+//void Enemy::HandleCollision(Projectile &a_roTarget)
+//{
+//	if(a_roTarget.GetTag() == "Bullet" || a_roTarget.GetTag() == "Missile" || a_roTarget.GetTag() == "Laser" )
+//	{
+//		if(CheckBoxCollision(a_roTarget))
+//		{
+//			this->Die();
+//		}
+//	}
+//}
+//
+//
+//void Enemy::HandleCollision(Entity &a_roTarget)
+//{
+//	
+//}
 

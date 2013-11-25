@@ -44,9 +44,9 @@ void Laser::Launch()
 {
 }
 
-void Laser::HandleCollision(Entity &a_roTarget)
-{
-	if(CheckBoxCollision(a_roTarget))
-		this->Die();
-}
-
+//void Laser::HandleCollision(Entity &a_roTarget)
+//{
+//	if(CheckBoxCollision(a_roTarget))
+//		this->Die();
+//}
+//

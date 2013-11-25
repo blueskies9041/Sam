@@ -16,6 +16,7 @@ bool c_bPlayerAlive = true;
 const int c_iPlayerMaxBullets = 8;
 const int c_iPlayerMaxMissiles = 3;
 const int c_iPlayerMaxLasers = 10;
+const int c_iPlayerHp = 10;
 Vector2D c_v2DInitPlayerPos(512, 384);
 
 static char * scpCurrentWeapon = " Bullet ";
@@ -23,6 +24,7 @@ static char * scpCurrentWeapon = " Bullet ";
 void Player::Init()
 {
 	SetTag("Player");
+	SetHp(c_iPlayerHp);
 	SetWidth(c_iPlayerWidth);
 	SetHeight(c_iPlayerHeight);
 	SetAlive(c_bPlayerAlive);
@@ -64,6 +66,9 @@ void Player::Update()
 {
 	if(GetAlive())
 	{
+		if(GetHp() <= 0)
+			this->Die();
+
 		m_iBulletTimer++;
 		m_iMissileTimer++;
 		m_iLaserTimer++;
@@ -169,18 +174,14 @@ void Player::Die()
 	SetPosition(-100, -100);
 }
 
-void Player::HandleCollision(Projectile &a_roTarget)
-{
-	if(a_roTarget.GetTag() == "Bullet")
-	{
-		if(CheckBoxCollision(a_roTarget))
-			this->Die();
-	}
-}
-
-
-void Player::HandleCollision(Entity &a_roTarget)
-{
-
-}
-
+//void Player::HandleCollision(Projectile &a_roTarget)
+//{
+//	
+//}
+//
+//
+//void Player::HandleCollision(Entity &a_roTarget)
+//{
+//
+//}
+//
