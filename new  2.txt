@@ -1,0 +1,144 @@
+//////////////////////////////////////////////////////////////////////////
+#include "AIE.h"
+#include <string>
+#include <cmath>
+#include <time.h>
+#include <assert.h>
+#include <crtdbg.h>
+//#include <iostream>
+
+#include "Game.h" //Has all my other includes
+
+void debugGame(Game daGame);
+
+int main( int argc, char* argv[] )
+{	
+	//srand( time(NULL) );
+	const int iScreenWidth = 1280;
+	const int iScreenHeight = 780;
+
+	Initialise(iScreenWidth, iScreenHeight, false);
+
+	int iMouseX;
+	int iMouseY;
+
+	bool debug = true;
+	
+	enum GAME_STATE
+	{
+		MENU,
+		GAME,
+		END,
+	};
+
+	void (Game::*Process)() = nullptr;
+
+	Game DaGame;
+	GAME_STATE eCurrentState = MENU;
+
+	do 
+	{
+		GetMouseLocation(iMouseX, iMouseY);
+
+		if(eCurrentState == MENU)
+			Process = &Game::UpdateMenu;
+		if(eCurrentState == GAME)
+			Process = &Game::UpdateGame;
+
+		if((iMouseX > 610 && iMouseX < 720) && (iMouseY > 180 && iMouseY < 200) && (eCurrentState == MENU && GetMouseButtonDown(0) ) )
+			eCurrentState = GAME;
+
+		(DaGame.*Process)();
+
+		if(debug)
+		{
+			debug = !debug;
+			debugGame(DaGame);
+		}
+		if(DaGame.GetLevel().GetPlayer().GetTimer() > 1000)
+		{
+			debug = !debug;
+		} // DEBUGGING
+
+	} while ( FrameworkUpdate() == false );
+	
+	Shutdown();
+
+	return 0;
+}
+
+void debugGame(Game daGame)
+{
+	system("cls");
+	daGame.GetLevel().DebugLevel();
+	//daGame.GetLevel().GetPlayer().DebugPlayer();
+}
+
+===
+
+#ifndef _GAME_H_
+#define _GAME_H_
+
+#include "AIE.h"
+#include "Vector2D.h"
+#include "Sprite.h"
+#include "Player.h"
+#include "Projectile.h"
+#include "Level.h"
+
+using namespace std;
+
+class Game
+{
+	private:
+
+		Level Menu;
+		Level GameOver;
+		Level LevelOne;
+		
+	public:
+
+		Game();
+		~Game();
+		void UpdateGame();
+		void UpdateMenu();
+		
+		inline Level GetLevel() { return LevelOne; }
+};
+
+
+#endif
+
+=== 
+
+#include "Game.h"
+
+Game::Game()
+{
+	Menu = Level(0);
+	GameOver = Level(0);
+		GameOver.GetBackground().Create("./images/gameover.png");
+	LevelOne = Level();	
+}
+
+Game::~Game()
+{
+
+}
+
+void Game::UpdateMenu()
+{
+	Menu.GetBackground().Move();
+	Menu.GetBackground().Draw();
+}
+
+void Game::UpdateGame()
+{
+	LevelOne.UpdateLevel();
+}
+
+
+
+
+
+
